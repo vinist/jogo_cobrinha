@@ -33,10 +33,10 @@ function drawFood() {
 document.addEventListener('keydown', update);
 
 function update(event) {
-    if(event.keyCode == 37 && direction != "right") direction = "left";
-    if(event.keyCode == 38 && direction != "down") direction = "up";
-    if(event.keyCode == 39 && direction != "left") direction = "right";
-    if(event.keyCode == 40 && direction != "up") direction = "down";
+    if(event.keyCode == 37 && direction != "right" && !(snake[0].y > 15 * box || snake[0].y < 0)) direction = "left";
+    if(event.keyCode == 38 && direction != "down" && !(snake[0].x > 15 * box || snake[0].x < 0)) direction = "up";
+    if(event.keyCode == 39 && direction != "left" && !(snake[0].y > 15 * box || snake[0].y < 0)) direction = "right";
+    if(event.keyCode == 40 && direction != "up" && !(snake[0].x > 15 * box || snake[0].x < 0)) direction = "down";
 }
 
 function iniciarJogo() {
@@ -49,7 +49,11 @@ function iniciarJogo() {
     for(let i = 1; i < snake.length; i++) {
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
             clearInterval(jogo);
-            alert("Game Over :(");
+            let ok = confirm("Game Over :( Jogar Novamente?");
+            if(ok == true) {
+                console.log("ok");
+                window.location.reload(); 
+            }
         }
 
     }
